@@ -64,8 +64,6 @@ module AwesomeModule
 
       price = record['price(USD)'] || 0
       @arr << [date, price]
-    rescue StandardError => e
-      pp e
     end
 
     def grouped(data)
@@ -113,7 +111,7 @@ module AwesomeModule
       raise StandardError, "'Date to' should be provided! #{input_help}" unless filter_date_to
       raise StandardError, "'Granularity' should be provided! #{input_help}" unless granularity
       raise StandardError, "Granularity is wrong! #{input_help}" unless %w[by_date by_week by_month by_quarter]
-                                                                          .include?(granularity)
+                                                                        .include?(granularity)
       raise StandardError, "Order is wrong!  #{input_help}" unless %w[desc asc].include?(order_dir)
 
       Importer.call(file_name,

@@ -1,4 +1,4 @@
-require 'spec_helper.rb'
+require 'spec_helper'
 
 describe AwesomeModule::Caller do
   shared_examples 'raise StandardError' do
@@ -15,7 +15,6 @@ describe AwesomeModule::Caller do
       subject
     end
   end
-
 
   let(:filter_date_from) { '2009-01-12' }
   let(:filter_date_to) { '2009-01-12' }
