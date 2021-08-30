@@ -13,7 +13,12 @@ language to implement this task. As a result this method should return an array 
   - granularity - daily (default), weekly, monthly, quarterly. This parameter should group price data by the
   given period. Based on granularity, date should be the first day of week, month, etc. Price in each group should be
   calculated as average value. For example if granularity is weekly - price should be calculated as
-  price_sum_for_week / 7.
+  price_sum_for_week / week_records_count.
 - Link to the json data:
   https://pkgstore.datahub.io/cryptocurrency/bitcoin/bitcoin_json/data/3d47ebaea5707774cb076c9cd2e0ce8c/bitcoin_json.json
 - Also, implement unit tests. Please, use Rspec framework for Ruby tests or Jest framework for EcmaScript tests.
+
+### Solution
+- bundle install
+- run app `bundle exec ruby ./lib/awesome_module.rb 2009-01-1 2021-12-31 by_date`
+- tests `bundle exec rspec`
