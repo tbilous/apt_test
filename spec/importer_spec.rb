@@ -1,6 +1,18 @@
 require 'spec_helper'
 
 describe AwesomeModule::Importer do
+  shared_examples 'default sorting' do
+    it { expect(subject.last[0].to_s).to eq '2020-01-09' }
+  end
+
+  shared_examples 'by_date grouping' do
+    it do
+      is_expected.to match_array([['2021-12-08', 7], ['2021-08-31', 4], ['2021-08-30', 3], ['2021-08-25', 0],
+                                  ['2021-08-24', 2], ['2021-07-06', 5], ['2021-07-05', 1], ['2020-12-07', 6],
+                                  ['2020-01-09', 1]])
+    end
+  end
+
   describe '#call' do
     let(:filter_date_from) { Date.parse('2020-01-01') }
     let(:filter_date_to) { Date.parse('2021-12-31') }
@@ -25,20 +37,36 @@ describe AwesomeModule::Importer do
     end
 
     describe 'sorting' do
+      subject { described_class.call(file, filter_date_from, filter_date_to, granularity, order_dir) }
+
       context 'default sorting' do
-        it { expect(subject.last[0].to_s).to eq '2020-01-09' }
+        it_behaves_like 'default sorting'
       end
 
       context 'asc sorting' do
         let(:order_dir) { 'asc' }
-        subject { described_class.call(file, filter_date_from, filter_date_to, granularity, order_dir) }
 
         it { expect(subject.last[0].to_s).to eq '2021-12-08' }
       end
+
+      context 'desc sorting' do
+        let(:order_dir) { 'desc' }
+
+        it_behaves_like 'default sorting'
+      end
     end
 
-    describe 'grouping' do
-      # by_date by_week by_month by_quarter
+    describe 'grouping' do       # by_date by_week by_month by_quarter
+      context 'default grouping' do
+        it_behaves_like 'by_date grouping'
+      end
+
+      context 'by_date grouping' do
+        let(:granularity) { 'by_date' }
+
+        it_behaves_like 'by_date grouping'
+      end
+
       context 'by week' do
         let(:granularity) { 'by_week' }
 

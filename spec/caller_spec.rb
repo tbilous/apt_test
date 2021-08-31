@@ -9,7 +9,7 @@ describe AwesomeModule::Caller do
     it { expect { subject }.to raise_error(Date::Error) }
   end
 
-  shared_examples 'Importer should be called' do
+  shared_examples 'Importer should called' do
     it do
       expect(AwesomeModule::Importer).to receive(:call)
       subject
@@ -26,7 +26,7 @@ describe AwesomeModule::Caller do
 
   describe '#run' do
     context 'if params is right' do
-      it_behaves_like 'Importer should be called'
+      it_behaves_like 'Importer should called'
     end
 
     context 'if params has empty or wrong values' do
@@ -69,7 +69,7 @@ describe AwesomeModule::Caller do
       context 'if order_dir is empty' do
         let(:order_dir) {}
 
-        it_behaves_like 'Importer should be called'
+        it_behaves_like 'Importer should called'
       end
 
       context 'if granularity is order_dir' do
